@@ -3,11 +3,11 @@ import mysql.connector
 mydb1 = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="Nidhi17",
-  database="mpdb"
+  password="Nidhi@179",
+  database="mydb"
 )
 #inserting data to db
-see = int(4)
+see =  7
 c = int(1)
 
 def add_text(Ename,Edesp,Edate,Etime,Eloc,Eimg):
@@ -17,12 +17,13 @@ def add_text(Ename,Edesp,Edate,Etime,Eloc,Eimg):
     mydb1.commit()
 
 def increment(see):
+    print(see)
     see += 1
     return see
 
 def  details(d,date,id):
     global c
     cursor = mydb1.cursor()
-    cursor.execute("INSERT INTO mpdb.complaints (cid, C_Descp, CDate, vid) VALUES (%s,%s,%s,%s)",(c,d,date,id))
+    cursor.execute("INSERT INTO mydb.complaint (C_id, C_Descp, CDate, vid) VALUES (%s,%s,%s,%s)",(c,d,date,id))
     c = c + 1
     mydb1.commit()

@@ -5,6 +5,10 @@ html, body{
     /* background: rgb(237, 242, 245);
     background: linear-gradient(90deg, rgb(111, 164, 189) 0%, rgb(111, 138, 197) 35%, rgb(160, 199, 221) 100%); */
  }
+
+ .events{
+    overflow-x: hidden;
+ }
 label{
     font-weight: bold;
 }
@@ -74,7 +78,7 @@ input[type=image]{
     margin-left: 20px;
     margin-top: 6px;
     border-radius: 3%;
-    background-color: #1e5683;
+    background-color: #395e7c;
     color: white;
 }
 

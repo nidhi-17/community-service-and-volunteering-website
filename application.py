@@ -14,15 +14,15 @@ from addPost import add_text, details
 
 
 pointer = int(102)
-track = int(502)
-k = int(2)
+track = int(601)
+k = int(7)
 c = int(2)
 
-mydb = mysql.connector.connect(
+db = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="Nidhi17",
-  database="mpdb"
+  password="Nidhi@179",
+  database="mydb"
 )
 
 
@@ -42,7 +42,7 @@ def tt():
     pk = ''
     if request.method == 'POST':
         pk = request.get_data().decode('utf-8')
-        mycursor = mydb.cursor()
+        mycursor = db.cursor()
 
         mycursor.execute("SELECT Img FROM details")
 
@@ -76,12 +76,12 @@ def log():
 
 @app.route('/Admin', methods=["GET", "POST"])
 def admin():
-    mycursor = mydb.cursor()
-    mycursor.execute("SELECT * FROM cp")
+    mycursor = db.cursor()
+    mycursor.execute("SELECT * FROM mydb.complaint")
     e = mycursor.fetchall()
-    mycursor.execute("SELECT ngo_name, ngo_loc, ngo_email, ngo_phone, ngo_certi FROM mpdb.ngo")
+    mycursor.execute("SELECT ngo_name, ngo_loc, ngo_email, ngo_phone, ngo_certi FROM mydb.ngo")
     n = mycursor.fetchall()
-    mycursor.execute("SELECT Fname, Lname, Email, Phone, Address FROM mpdb.volunteer")
+    mycursor.execute("SELECT Fname, Lname, Email, Phone, Address FROM mydb.volunteer")
     n1 = mycursor.fetchall()
     return render_template("Admin.html", data = e, ngo = n, vol=n1)
 
@@ -97,16 +97,16 @@ def ret():
         pk = list(pk.split(" "))
         it = iter(pk)
         pk = dict(zip(it, it))
-        print(pk)
+        print("pk",pk)
         if pk.get('e') == "Admin" :
             #return render_template('Admin.html', data="Admin")
             return jsonify(int(1))
         elif pk.get('e').startswith('@') :
-            mycursor = mydb.cursor()
+            mycursor = db.cursor()
             name = pk.get('e')
             name = name.replace("@","")
             print(name)
-            mycursor.execute("SELECT ngo_pass FROM mpdb.ngo WHERE ngo_name = %s", (name,))
+            mycursor.execute("SELECT ngo_pass FROM mydb.ngo WHERE ngo_name = %s", (name,))
             da = mycursor.fetchone()
             test = generate_password_hash(pk.get('p'))
             print(test)
@@ -119,8 +119,8 @@ def ret():
             else :
                 return jsonify(int(8))
         else :
-            mycursor = mydb.cursor()
-            mycursor.execute("SELECT vpass FROM mpdb.volunteer WHERE Email = %s", (pk.get('e'),))
+            mycursor = db.cursor()
+            mycursor.execute("SELECT v_pass FROM mydb.volunteer WHERE Email = %s", (pk.get('e'),))
             da = mycursor.fetchone()
             test = generate_password_hash(pk.get('p'))
             print(test)
@@ -154,15 +154,15 @@ def d():
 
     if pk.get('id') == 'u' :
         global pointer
-        mycursor = mydb.cursor()
+        mycursor = db.cursor()
         print(pk)
         add = pk.get('address')
         add = add.replace("+", " ")
         add = add.replace("%2C",",")
-        sql = "INSERT INTO mpdb.volunteer (idVolunteer, Fname, Lname, Email, Phone, Address, Gender, DOB, Age, Admin_ID, vpass) VALUES (%s, %s, %s, %s, %s, %s,%s, %s, %s,%s,%s)"
+        sql = "INSERT INTO mydb.volunteer (idVolunteer, Fname, Lname, Email, Phone, Address, Gender, DOB, Age, Admin_ID, v_pass) VALUES (%s, %s, %s, %s, %s, %s,%s, %s, %s,%s,%s)"
         val = (pointer,pk.get('Fname'), pk.get('Lname'), pk.get('email'),pk.get('pno'),add,pk.get('gender'),pk.get('date'), pk.get('age'),1001,generate_password_hash(pk.get('pass')) )
         mycursor.execute(sql, val)
-        mydb.commit()
+        db.commit()
         pointer = pointer + 1
 
         print(mycursor.rowcount, "record inserted.")
@@ -170,7 +170,7 @@ def d():
         return redirect(url_for('b'))
     else :
         global track
-        mycursor = mydb.cursor()
+        mycursor = db.cursor()
         print(pk)
         add = pk.get('Nloc')
         add = add.replace("+", " ")
@@ -181,10 +181,10 @@ def d():
         cert = pk.get('Ncert')
         cert = cert.replace("%2F", "/")
         print(cert)
-        sql = "INSERT INTO mpdb.ngo (idNGO, ngo_name, ngo_loc, ngo_email, ngo_phone, ngo_descrip, ngo_certi, ngo_pass, AdminID) VALUES (%s, %s, %s, %s, %s, %s,%s, %s, %s)"
+        sql = "INSERT INTO mydb.ngo (idNGO, ngo_name, ngo_loc, ngo_email, ngo_phone, ngo_descrip, ngo_certi, ngo_pass, AdminID) VALUES (%s, %s, %s, %s, %s, %s,%s, %s, %s)"
         val = (track, pk.get('Nname'), add, pk.get('Ne'),pk.get('Nphone'),des,cert, generate_password_hash(pk.get('Npass')),1001)
         mycursor.execute(sql, val)
-        mydb.commit()
+        db.commit()
         track = track + 1
         print(mycursor.rowcount, "record inserted.")
         return redirect(url_for('b'))
@@ -203,9 +203,9 @@ def remove():
     data = data.replace("+", " ")
     data = list(data.split(" "))
     print(data[0])
-    mycursor = mydb.cursor()
-    mycursor.execute("DELETE FROM mpdb.ngo WHERE ngo_name = %s",(data[1],))
-    mydb.commit()
+    mycursor = db.cursor()
+    mycursor.execute("DELETE FROM mydb.ngo WHERE ngo_name = %s",(data[1],))
+    db.commit()
     return redirect(url_for('admin'))
 
 
@@ -217,9 +217,9 @@ def ruse():
         data = data.replace("+", " ")
         data = list(data.split(" "))
         print(data[1])
-        mycursor = mydb.cursor()
-        mycursor.execute("DELETE FROM mpdb.volunteer WHERE Fname = %s",(data[1],))
-        mydb.commit()
+        mycursor = db.cursor()
+        mycursor.execute("DELETE FROM mydb.volunteer WHERE Fname = %s",(data[1],))
+        db.commit()
         return redirect(url_for('admin'))
 
 
@@ -227,21 +227,24 @@ def ruse():
 
 @app.route('/User',methods=["GET", "POST"])
 def user1():
-    mycursor = mydb.cursor()
-    mycursor.execute("SELECT Fname, Lname, Email, Phone, Address FROM mpdb.volunteer")
-    info1 = mycursor.fetchall()
+    mycursor = db.cursor()
     email = session["name"]
-    mycursor.execute("SELECT idVolunteer from mpdb.volunteer WHERE Email = %s",(email,))
+    mycursor.execute("SELECT idVolunteer from mydb.volunteer WHERE Email = %s",(email,))
     here = mycursor.fetchone()
+
+    mycursor.execute("SELECT Fname, Lname, Email, Phone, Address FROM mydb.volunteer  WHERE idVolunteer =%s",(here[0],))
+    info1 = mycursor.fetchall()
+    
     mycursor.execute("SELECT e_name,e_loc,e_date,e_time FROM event WHERE volID = %s",(here[0],))
     e = mycursor.fetchall()
+
     mycursor.execute("SELECT e_name,e_loc,e_date,e_time, e_descrip, e_img FROM event")
     upevents = mycursor.fetchall()
     return render_template("user.html", data=session["name"], info=list(info1), events = e, upevents = upevents)
 
 @app.route('/ngo',methods=["GET", "POST"])
 def ngo1():
-    mycursor = mydb.cursor()
+    mycursor = db.cursor()
     name = session["name"]
     name = name.replace("@", "")
     mycursor.execute("SELECT * FROM event")
@@ -251,10 +254,10 @@ def ngo1():
 @app.route("/add_post", methods=["POST", "GET"])
 def AddText():
     global k
-    mycursor = mydb.cursor()
+    mycursor = db.cursor()
     ngo = session["name"]
     ngo = ngo.replace("@","")
-    mycursor.execute("SELECT idNGO from mpdb.ngo WHERE ngo_name = %s",(ngo,))
+    mycursor.execute("SELECT idNGO from mydb.ngo WHERE ngo_name = %s",(ngo,))
     id = mycursor.fetchone()
     Ename = request.form["e_name"]
     Edesp = request.form["e_descrip"]
@@ -264,16 +267,16 @@ def AddText():
     Eimg = request.form["e_image"]
     mycursor.execute("INSERT INTO event(idEvent,e_name,e_loc,e_date,e_time,e_descrip,e_img,NgoId) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", (k,Ename,Eloc,Edate,Etime,Edesp,Eimg,id[0]))
     k = k + 1
-    mydb.commit()
+    db.commit()
     return redirect(url_for('ngo1'))
 
 @app.route("/delete_post",methods=['GET','POST'])
 def DelText():
-    mycursor = mydb.cursor()
+    mycursor = db.cursor()
     my_id  = request.form.getlist('options')
     delstamt='delete from event WHERE idEvent = %s'
     mycursor.execute(delstamt,my_id)
-    mydb.commit()
+    db.commit()
 
     return redirect(url_for('ngo1'))
 
@@ -289,8 +292,8 @@ def com1():
         desp = request.form["c_descrip"]
         date = request.form["c_date"]
         email = session["name"]
-        mycursor = mydb.cursor()
-        mycursor.execute("SELECT idVolunteer from mpdb.volunteer WHERE Email = %s",(email,))
+        mycursor = db.cursor()
+        mycursor.execute("SELECT idVolunteer from mydb.volunteer WHERE Email = %s",(email,))
         here = mycursor.fetchone()
         print(here[0])
         print(desp)
@@ -301,7 +304,7 @@ def com1():
 
 @app.route("/signup",methods=['GET','POST'])
 def su():
-    mycursor = mydb.cursor()
+    mycursor = db.cursor()
     pk = request.get_data().decode('utf-8')
     pk = str(pk)
     pk = pk.replace("%3A",":")
@@ -316,18 +319,18 @@ def su():
     name = pk.get('n').replace("+"," ")
     time = pk.get('t').replace("+"," ")
     em = session["name"]
-    mycursor.execute("SELECT idVolunteer FROM mpdb.volunteer WHERE Email = %s",(em,))
+    mycursor.execute("SELECT idVolunteer FROM mydb.volunteer WHERE Email = %s",(em,))
     id = mycursor.fetchone()
-    mycursor.execute("SELECT idEvent FROM mpdb.event ORDER BY  idEvent DESC LIMIT 1")
+    mycursor.execute("SELECT idEvent FROM mydb.event ORDER BY  idEvent DESC LIMIT 1")
     var = mycursor.fetchone()
     var = var[0]
     var = var + 1
     mycursor.execute("INSERT INTO event(idEvent,e_name,e_loc,e_date,e_time,e_descrip,e_img,volID,NgoId) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (var,name,pk.get('l'),pk.get('d'),time,pk.get('dd'),pk.get('i'),101,501))
-    mydb.commit()
-    mycursor.execute("SELECT Fname, Lname, Email, Phone, Address FROM mpdb.volunteer")
+    db.commit()
+    mycursor.execute("SELECT Fname, Lname, Email, Phone, Address FROM mydb.volunteer")
     info1 = mycursor.fetchall()
     email = session["name"]
-    mycursor.execute("SELECT idVolunteer from mpdb.volunteer WHERE Email = %s",(email,))
+    mycursor.execute("SELECT idVolunteer from mydb.volunteer WHERE Email = %s",(email,))
     here = mycursor.fetchone()
     mycursor.execute("SELECT e_name,e_loc,e_date,e_time FROM event WHERE volID = %s",(here[0],))
     e = mycursor.fetchall()
@@ -340,7 +343,7 @@ def su():
 
 @app.route("/explore",methods=['GET','POST'])
 def e():
-    mycursor = mydb.cursor()
+    mycursor = db.cursor()
     mycursor.execute("SELECT e_name,e_loc,e_date,e_time, e_descrip, e_img FROM event")
     upevents = mycursor.fetchall()
     return render_template("explore.html", upevents=upevents)

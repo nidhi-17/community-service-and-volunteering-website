@@ -29,6 +29,12 @@
                 }
             }
         }
+        function delete_success(){
+            alert("Event deleted succesfully!!");
+        }
+        function save_success(){
+            alert("Event added succesfully!!");
+        }
     </script>
 </head>
 
@@ -121,7 +127,7 @@
                             <input type="text" name="e_loc" placeholder="Enter the Location"><br><br>
                             <label for="Image">Poster</label><br>
                             <input type="text" name="e_image" placeholder="Image path"><br><br>
-                            <input type="submit" value="Save" class="btn btn-primary">
+                            <input type="submit" value="Save" class="btn btn-primary" onclick="save_success()">
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -155,7 +161,7 @@
                                 <div class="text-body">Time: {{row[4]}}</div>
                             </label>
                             <br>
-                            <input type="submit" value="Delete" class="btn btn-danger">
+                            <input type="submit" value="Delete" class="btn btn-danger" onclick="delete_success()">
                         </form>
                         <hr><br>
                         {% endfor %}

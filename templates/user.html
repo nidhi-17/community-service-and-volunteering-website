@@ -1,424 +1,348 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>User Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<head>
+  <meta charset="utf-8">
+  <title>User Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
+    crossorigin="anonymous"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   <link rel="stylesheet" href="../static/css/ngo.css">
   <script>
-  function sign(name,loc,date,time,des,img){
-    let l = [name,loc,date,time]
-    let l1 = ["Event name : ","Location : ","Date : ","Time : "]
-    $.ajax({
-      url: '/signup',
-      type: 'POST',
-      data: {
-        n : name,
-        l : loc,
-        d : date,
-        t : time,
-        dd : des,
-        i : img,
-      },
-      success: function(response){
-        console.log(response.data)
-        var a = document.getElementById('boo')
-        for (var i = 0; i<l.length; i++){
-          var v = document.createElement('p')
-          v.innerHTML= l1[i]+l[i]
-          a.appendChild(v)
+    function compmade() {
+      alert("Complaint registered succesfully!!");
+    }
+    function sign(name, loc, date, time, des, img) {
+      let l = [name, loc, date, time]
+      let l1 = ["Event name : ", "Location : ", "Date : ", "Time : "]
+      $.ajax({
+        url: '/signup',
+        type: 'POST',
+        data: {
+          n: name,
+          l: loc,
+          d: date,
+          t: time,
+          dd: des,
+          i: img,
+        },
+        success: function (response) {
+          console.log(response.data)
+          var a = document.getElementById('boo')
+          for (var i = 0; i < l.length; i++) {
+            var v = document.createElement('p')
+            v.innerHTML = l1[i] + l[i]
+            a.appendChild(v)
+          }
         }
-      }
-  })
+      })
 
-  }
+    }
   </script>
   <script>
     function myFunction() {
-          console.log("Click Search")
-          var input, filter, cards, h5, title, i;
-          input = document.getElementById("text");
-          filter = input.value;
-          cards = document.getElementsByClassName("card");
-          for (i = 0; i < cards.length; i++) {
-              title = cards[i].querySelector(".card-title");
-              if (title.innerText.indexOf(filter) > -1) {
-                  cards[i].style.display = "";
-              } else {
-                  cards[i].style.display = "none";
-              }
-          }
+      console.log("Click Search")
+      var input, filter, cards, h5, title, i;
+      input = document.getElementById("text");
+      filter = input.value;
+      cards = document.getElementsByClassName("card");
+      for (i = 0; i < cards.length; i++) {
+        title = cards[i].querySelector(".card-title");
+        if (title.innerText.indexOf(filter) > -1) {
+          cards[i].style.display = "";
+        } else {
+          cards[i].style.display = "none";
+        }
       }
+    }
   </script>
   <style>
-  .button{
-    margin-top: 20px;
-  }
-  .hello{
-      margin-top: 20px;
+ html{
+  overflow-x: hidden;
+ }
+    .icon {
+      margin-left: 900px;
+    }
 
-  }
-  .icon{
-    margin-left:900px;
-  }
+    body {
+      background-color: #0cbaba;
+      background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+    }
 
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: auto;
-    grid-gap: 1rem;
-  }
+    #cards_landscape_wrap-2 {
+      text-align: center;
+    }
 
-  /* &amp;amp;nbsp;
-  .card {
-    border: 2px solid #e7e7e7;
-    border-radius: 4px;
-    padding: .5rem;
-  } */
-
-  /* .container-pink{
-    display:flex;
-    flex-direction: row;
-  } */
-
-  /* .container-pink{
-    padding: 3% 2%;
-  } */
-
-  /* .card{
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-  } */
-
-  /* .card {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: auto;
-    grid-gap: 1rem;
-  } */
-
-  body{
-    background-color: #0cbaba;
-    background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
-  }
-  #cards_landscape_wrap-2{
-    text-align: center;
-  }
-  #cards_landscape_wrap-2 .container{
+    /* #cards_landscape_wrap-2 .container{
     padding-top: 80px;
     padding-bottom: 100px;
-    margin-left: 300px;
-  }
+  } */
 
-  #cards_landscape_wrap-2 a{
-    text-decoration: none;
-    outline: none;
-  }
-  #cards_landscape_wrap-2 .card-flyer {
-    border-radius: 5px;
-  }
-  #cards_landscape_wrap-2 .card-flyer .image-box{
-    background: #ffffff;
-    overflow: hidden;
-    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.50);
-    border-radius: 5px;
-  }
-  #cards_landscape_wrap-2 .card-flyer .image-box img{
-    -webkit-transition:all .9s ease;
-    -moz-transition:all .9s ease;
-    -o-transition:all .9s ease;
-    -ms-transition:all .9s ease;
-    width: 100%;
-    height: 200px;
-  }
-  #cards_landscape_wrap-2 .card-flyer:hover .image-box img{
-    opacity: 0.7;
-    -webkit-transform:scale(1.15);
-    -moz-transform:scale(1.15);
-    -ms-transform:scale(1.15);
-    -o-transform:scale(1.15);
-    transform:scale(1.15);
-  }
-  #cards_landscape_wrap-2 .card-flyer .text-box{
-    text-align: center;
-  }
-  #cards_landscape_wrap-2 .card-flyer .text-box .text-container{
-    padding: 30px 18px;
-  }
-  #cards_landscape_wrap-2 .card-flyer{
-    background: #FFFFFF;
-    margin-top: 50px;
-    -webkit-transition: all 0.2s ease-in;
-    -moz-transition: all 0.2s ease-in;
-    -ms-transition: all 0.2s ease-in;
-    -o-transition: all 0.2s ease-in;
-    transition: all 0.2s ease-in;
-    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.40);
-  }
-  #cards_landscape_wrap-2 .card-flyer:hover{
-    background: #fff;
-    box-shadow: 0px 15px 26px rgba(0, 0, 0, 0.50);
-    -webkit-transition: all 0.2s ease-in;
-    -moz-transition: all 0.2s ease-in;
-    -ms-transition: all 0.2s ease-in;
-    -o-transition: all 0.2s ease-in;
-    transition: all 0.2s ease-in;
-    margin-top: 50px;
-  }
-  #cards_landscape_wrap-2 .card-flyer .text-box p{
-    margin-top: 10px;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-    font-size: 14px;
-    letter-spacing: 1px;
-    color: #000000;
-  }
-  #cards_landscape_wrap-2 .card-flyer .text-box h6{
-    margin-top: 0px;
-    margin-bottom: 4px;
-    font-size: 18px;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-family: 'Roboto Black', sans-serif;
-    letter-spacing: 1px;
-    color: #00acc1;
-  }
+    #cards_landscape_wrap-2 a {
+      text-decoration: none;
+      outline: none;
+    }
 
-  .danner{
-    padding-top: 5%;
-    position: relative;
-    top:110%;
-    width: 100%;
-  }
+    #cards_landscape_wrap-2 .card-flyer {
+      border-radius: 5px;
+    }
 
-  #column{
-    float: left;
-    padding-left: 5px;
-    margin-left: 10px;
-  }
+    #cards_landscape_wrap-2 .card-flyer .image-box {
+      background: #ffffff;
+      overflow: hidden;
+      box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.50);
+      border-radius: 5px;
+    }
 
-            /* Clearfix (clear floats) */
-  #row::after {
-    content: "";
-    clear: both;
-    display: table;
-  }
+    #cards_landscape_wrap-2 .card-flyer .image-box img {
+      -webkit-transition: all .9s ease;
+      -moz-transition: all .9s ease;
+      -o-transition: all .9s ease;
+      -ms-transition: all .9s ease;
+      width: 100%;
+      height: 200px;
+    }
 
+    #cards_landscape_wrap-2 .card-flyer:hover .image-box img {
+      opacity: 0.7;
+      -webkit-transform: scale(1.15);
+      -moz-transform: scale(1.15);
+      -ms-transform: scale(1.15);
+      -o-transform: scale(1.15);
+      transform: scale(1.15);
+    }
+
+    #cards_landscape_wrap-2 .card-flyer .text-box {
+      text-align: center;
+    }
+
+    #cards_landscape_wrap-2 .card-flyer .text-box .text-container {
+      padding: 30px 18px;
+    }
+
+    #cards_landscape_wrap-2 .card-flyer {
+      background: #FFFFFF;
+      margin-top: 50px;
+      -webkit-transition: all 0.2s ease-in;
+      -moz-transition: all 0.2s ease-in;
+      -ms-transition: all 0.2s ease-in;
+      -o-transition: all 0.2s ease-in;
+      transition: all 0.2s ease-in;
+      box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.40);
+    }
+
+    #cards_landscape_wrap-2 .card-flyer:hover {
+      background: #fff;
+      box-shadow: 0px 15px 26px rgba(0, 0, 0, 0.50);
+      -webkit-transition: all 0.2s ease-in;
+      -moz-transition: all 0.2s ease-in;
+      -ms-transition: all 0.2s ease-in;
+      -o-transition: all 0.2s ease-in;
+      transition: all 0.2s ease-in;
+      margin-top: 50px;
+    }
+
+    #cards_landscape_wrap-2 .card-flyer .text-box p {
+      /* margin-top: 10px; */
+      margin-bottom: 0px;
+      padding-bottom: 0px;
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: #000000;
+    }
+
+    #row{
+      display: grid;
+      grid-template-columns: repeat(3, 0.5fr);
+      grid-auto-rows: auto;
+
+    }
+
+
+    #cards_landscape_wrap-2 .card-flyer .text-box h6 {
+      margin-top: 0px;
+      /* margin-bottom: 4px; */
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-family: 'Roboto Black', sans-serif;
+      letter-spacing: 1px;
+      color: #00acc1;
+    }
+
+ 
+
+  
   </style>
-  </head>
+</head>
 
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#"><img src="/static/img/logo.jpg" alt="logo" height="30px" width="150px"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" onclick="window.location.href='about'">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#foot">Contact</a>
-        </li>
-        <form class="d-flex" style="margin-left:800px">
-          <div class="dropdown">
-                      <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                          data-bs-toggle="dropdown" aria-expanded="false">
-                          <i class="fas fa-street-view" style="font-size:35px;color:white"></i>
-                      </a>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="right:0; left:auto">
-                          <li><a class="dropdown-item" href="#" id="user_name">{{ data }}</a></li>
-                          <li><a class="dropdown-item" href="#" data-bs-target="#exampleModal1" data-bs-toggle="modal">Details</a></li>
-                          <li><a class="dropdown-item" href="#" data-bs-target="#exampleModal" data-bs-toggle="modal">Complaint</a></li>
-                          <li><a class="dropdown-item" href="logout">Logout</a></li>
-                      </ul>
-                  </div>
-        </form>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><img src="/static/img/logo.jpg" alt="logo" height="30px" width="150px"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="window.location.href='about'">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#foot">Contact</a>
+          </li>
+          <form class="d-flex" style="margin-left:800px">
+            <div class="dropdown">
+              <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fas fa-street-view" style="font-size:35px;color:white"></i>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="right:0; left:auto">
+                <li><a class="dropdown-item" href="#" id="user_name">{{ data }}</a></li>
+                <li><a class="dropdown-item" href="#" data-bs-target="#exampleModal1" data-bs-toggle="modal">Details</a>
+                </li>
+                <li><a class="dropdown-item" href="#" data-bs-target="#exampleModal"
+                    data-bs-toggle="modal">Complaint</a></li>
+                <li><a class="dropdown-item" href="logout">Logout</a></li>
+              </ul>
+            </div>
+          </form>
 
-      </ul>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="exampleModal" class="modal" role='dialog'>
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-body">ENTER DETAILS</h4>
+        </div>
+        <div class="modal-body text-body">
+          <form action="/com" method="post">
+            <label for="Description">Complaint Description</label><br>
+            <textarea name="c_descrip" rows="5" cols="40" placeholder="Enter the description"></textarea><br><br>
+            <label for="Date">Date</label><br>
+            <input type="date" name="c_date" placeholder="Date  dd/mm/yyyy"><br><br>
+            <input type="submit" value="Save" class="btn btn-primary" onclick="compmade()">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
   </div>
-</nav>
 
-<div id="exampleModal" class="modal" role='dialog'>
+
+  <div id="exampleModal1" class="modal" role='dialog'>
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title text-body">ENTER DETAILS</h4>
-            </div>
-            <div class="modal-body text-body">
-                <form action="/com" method="post">
-                    <label for="Description">Complaint Description</label><br>
-                    <textarea name="c_descrip" rows="5" cols="40"
-                        placeholder="Enter the description"></textarea><br><br>
-                    <label for="Date">Date</label><br>
-                    <input type="date" name="c_date" placeholder="Date  dd/mm/yyyy"><br><br>
-                    <input type="submit" value="Save" class="btn btn-primary">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-body">User Details</h4>
         </div>
-    </div>
-</div>
-
-
-<div id="exampleModal1" class="modal" role='dialog'>
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title text-body">User Details</h4>
-            </div>
-            <div class="modal-body text-body" id="boo">
-              {% for info in info %}
-                <p>Name  : {{info[0]}}</p>
-                <p>Email  : {{info[2]}}</p>
-                <p>Phone  : {{info[3]}}</p>
-                <p>Address  : {{info[4]}}</p>
-                <hr style="height: 10px">
-                <h2> Events Information : </h2>
-                <br>
-                <br>
-              {% endfor %}
-              {% for i in events %}
-                <p> Event name : {{i[0]}}</p>
-                <p> Location  : {{i[1]}}</p>
-                <p> Date  : {{i[2]}}</p>
-                <p> Time  : {{i[3]}}</p>
-                <br>
-                <hr>
-              {% endfor %}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
+        <div class="modal-body text-body" id="boo">
+          {% for info in info %}
+          <p>Name : {{info[0]}}</p>
+          <p>Email : {{info[2]}}</p>
+          <p>Phone : {{info[3]}}</p>
+          <p>Address : {{info[4]}}</p>
+          <hr style="height: 10px">
+          <h2> Events Information : </h2>
+          <br>
+          <br>
+          {% endfor %}
+          {% for i in events %}
+          <p> Event name : {{i[0]}}</p>
+          <p> Location : {{i[1]}}</p>
+          <p> Date : {{i[2]}}</p>
+          <p> Time : {{i[3]}}</p>
+          <br>
+          <hr>
+          {% endfor %}
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
-</div>
-<form class= " hello d-flex">
-       <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="text">
-       &nbsp &nbsp
-       <input type="button" value="Search" class="btn btn-outline-success" style="color: white;" onclick="myFunction()">
-     </form>
-   </div>
+  </div>
+  <form class=" hello d-flex">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="text">
+    &nbsp &nbsp
+    <input type="button" value="Search" class="btn btn-outline-success" style="color: white;" onclick="myFunction()">
+  </form>
+  </div>
 
 
-     {% block body %}
-     <div class="danner">
-         <div class="row" id="row">
-                {% for row in upevents %}
-                <div class="events" style="width: 30rem; height:700px; margin-left:30px;">
-                <div class="card" style="width: 20rem; height: 40rem"  id="column">
-                    <img src="../static/img/{{row[5]}}" class="card-img-top" alt="plantation">
-                    <div class="card-body row">
-                        <h5 class="card-title">{{row[0]}}</h5>
-                        <p class="card-text">
-                            {{row[4]}}
-                        </p>
-                        <p class="card-text" style="font-size: smaller;">
-                        <p>Location and Timings: <br>
-                            {{row[1]}} <br>
-                            {{row[2]}} &nbsp;
-                            {{row[3]}}
-                        </p>
-                        </p>
-                        <input type="submit" value="Sign Up" class="btn btn-success" onclick="sign('{{row[0]}}','{{row[1]}}','{{row[2]}}','{{row[3]}}','{{row[4]}}' ,'{{row[5]}}')">
-                      </div>
-                </div>
-            </div>
-                {% endfor %}
-            </div>
+  {% block body %}
+  <div class="danner">
+    <div class="row" id="row">
+      {% for row in upevents %}
+      <div class="events" style="width: 30rem;  margin-left:10px;">
+        <div class="card" style="width: 20rem; height: 40rem" id="column">
+          <img src="../static/img/{{row[5]}}" class="card-img-top" alt="plantation">
+          <div class="card-body row">
+            <h5 class="card-title">{{row[0]}}</h5>
+            <p class="card-text">
+              {{row[4]}}
+            </p>
+            <p class="card-text" style="font-size: smaller;">
+            <p>Location and Timings: <br>
+              {{row[1]}} <br>
+              {{row[2]}} &nbsp;
+              {{row[3]}}
+            </p>
+            </p>
+            <input type="submit" value="Sign Up" class="btn btn-success"
+              onclick="sign('{{row[0]}}','{{row[1]}}','{{row[2]}}','{{row[3]}}','{{row[4]}}' ,'{{row[5]}}')">
           </div>
-              {% endblock %}
-
-      <!-- <div class="row">
-    {% for row in upevent %}
-       <div class="col-lg-3">
-                <div class="card card-inverse card-primary ">
-                  <div class="card-block">
-                    <div class="text-xs-center">
-                      <img src="../static/img/{{row[5]}}" class="card-img-top" alt="event">
-                      <div class="card-body row">
-                          <h5 class="card-title">{{row[0]}}</h5>
-                          <p class="card-text">
-                              {{row[4]}}
-                          </p>
-                          <p class="card-text" style="font-size: smaller;">
-                          <p>Location and Timings: <br>
-                              {{row[1]}} <br>
-                              {{row[2]}} &nbsp;
-                              {{row[3]}}
-                          </p>
-                          </p>
-                        </div>
-                          <input type="submit" value="Sign Up" class="btn btn-success">
-                </div>
-                   </div>
-                  </div>
-             </div>
+        </div>
       </div>
       {% endfor %}
-</div> -->
+    </div>
+  </div>
+  {% endblock %}
 
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <footer class="text-center text-white" style="background-color: black;" id='foot'>
+    <div class="container pt-4">
+      <section class="mb-4">
+        <a class="btn btn-link btn-floating btn-lg text-light m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-facebook-f"></i></a>
+        <a class="btn btn-link btn-floating btn-lg text-light m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-twitter"></i></a>
+        <a class="btn btn-link btn-floating btn-lg text-light m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-google"></i></a>
+        <a class="btn btn-link btn-floating btn-lg text-light m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-instagram"></i></a>
+        <a class="btn btn-link btn-floating btn-lg text-light m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-linkedin"></i></a>
+        <a class="btn btn-link btn-floating btn-lg text-light m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fas fa-envelope"></i></a>
+      </section>
+    </div>
+    <div class="text-center text-light p-3">
+      © 2021 Copyright:
+      <a class="text-light" href="#">Community Service And Volunteering Website</a>
+    </div>
 
+  </footer>
+</body>
 
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <footer class="text-center text-white" style="background-color: black;" id='foot'>
-          <div class="container pt-4">
-            <section class="mb-4">
-              <a
-                class="btn btn-link btn-floating btn-lg text-light m-1"
-                href="#!"
-                role="button"
-                data-mdb-ripple-color="dark"><i class="fab fa-facebook-f"></i></a>
-              <a
-                class="btn btn-link btn-floating btn-lg text-light m-1"
-                href="#!"
-                role="button"
-                data-mdb-ripple-color="dark"><i class="fab fa-twitter"></i></a>
-              <a
-                class="btn btn-link btn-floating btn-lg text-light m-1"
-                href="#!"
-                role="button"
-                data-mdb-ripple-color="dark"><i class="fab fa-google"></i></a>
-              <a
-                class="btn btn-link btn-floating btn-lg text-light m-1"
-                href="#!"
-                role="button"
-                data-mdb-ripple-color="dark"
-                ><i class="fab fa-instagram"></i></a>
-              <a
-                class="btn btn-link btn-floating btn-lg text-light m-1"
-                href="#!"
-                role="button"
-                data-mdb-ripple-color="dark"><i class="fab fa-linkedin"></i></a>
-              <a
-                class="btn btn-link btn-floating btn-lg text-light m-1"
-                href="#!"
-                role="button"
-                data-mdb-ripple-color="dark"><i class="fas fa-envelope"></i></a>
-            </section>
-          </div>
-          <div class="text-center text-light p-3" >
-            © 2021 Copyright:
-            <a class="text-light" href="#">Community Service And Volunteering Website</a>
-          </div>
-
-     </footer>
-       </body>
-     </html>
+</html>
