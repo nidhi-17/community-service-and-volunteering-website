@@ -31,7 +31,7 @@
     }
   </script>
   <style>
-    html{
+    html {
       margin: 0;
       padding: 0;
       overflow-x: hidden;
@@ -41,7 +41,7 @@
       margin-top: 20px;
     }
 
-    .danner{
+    .danner {
       margin-top: 8px;
     }
 
@@ -50,15 +50,12 @@
       background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
     }
 
-    #row-events{
+    #row-events {
       display: grid;
       grid-template-columns: repeat(3, 0.5fr);
       grid-auto-rows: auto;
 
     }
-  
-
-   
   </style>
 </head>
 
@@ -96,27 +93,29 @@
       <input type="button" value="Search" class="btn btn-outline-success" style="color: white;" onclick="myFunction()">
     </form>
   </div>
- 
+
 
   {% block body %}
-  
+
   <div class="danner">
     <div class="row" id="row-events">
       {% for row in upevents %}
       <div class="events" style="width: 30rem; height:700px;">
-        <div class="card" style="width: 20rem; height: 10rem" id="column">
+        <div class="card" style="width: 20rem; height: 33rem" id="column">
           <img src="../static/img/{{row[5]}}" height="200px" width="100px" class="card-img-top" alt="plantation">
           <div class="card-body row">
             <h5 class="card-title">{{row[0]}}</h5>
             <p class="card-text">
               {{row[4]}}
             </p>
-            <h6 id="loc">Location and Timings: <h6>
-                <div style="font-weight: text-light">
-                  {{row[1]}} <br>
-                  {{row[2]}} &nbsp;
-                  {{row[3]}}
-                </div>
+            <div>
+              <h6 id="loc">Location and Timings: </h6>
+                  <div style="font-weight: text-light">
+                    {{row[1]}} <br>
+                    {{row[2]}} &nbsp;
+                    {{row[3]}}
+                  </div>
+            </div>
           </div>
         </div>
       </div>
@@ -124,8 +123,6 @@
     </div>
   </div>
   {% endblock %}
-  <br>
-  <br>
   <br>
   <br>
   <footer class="text-center text-white" style="background-color: black;" id='foot'>
